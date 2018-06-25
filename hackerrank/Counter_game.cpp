@@ -1,0 +1,126 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+static uint64_t table[] = {
+    2ULL,
+    4ULL,
+    8ULL,
+    16ULL,
+    32ULL,
+    64ULL,
+    128ULL,
+    256ULL,
+    512ULL,
+    1024ULL,
+    2048ULL,
+    4096ULL,
+    8192ULL,
+    16384ULL,
+    32768ULL,
+    65536ULL,
+    131072ULL,
+    262144ULL,
+    524288ULL,
+    1048576ULL,
+    2097152ULL,
+    4194304ULL,
+    8388608ULL,
+    16777216ULL,
+    33554432ULL,
+    67108864ULL,
+    134217728ULL,
+    268435456ULL,
+    536870912ULL,
+    1073741824ULL,
+    2147483648ULL,
+    4294967296ULL,
+    8589934592ULL,
+    17179869184ULL,
+    34359738368ULL,
+    68719476736ULL,
+    137438953472ULL,
+    274877906944ULL,
+    549755813888ULL,
+    1099511627776ULL,
+    2199023255552ULL,
+    4398046511104ULL,
+    8796093022208ULL,
+    17592186044416ULL,
+    35184372088832ULL,
+    70368744177664ULL,
+    140737488355328ULL,
+    281474976710656ULL,
+    562949953421312ULL,
+    1125899906842624ULL,
+    2251799813685248ULL,
+    4503599627370496ULL,
+    9007199254740992ULL,
+    18014398509481984ULL,
+    36028797018963968ULL,
+    72057594037927936ULL,
+    144115188075855872ULL,
+    288230376151711744ULL,
+    576460752303423488ULL,
+    1152921504606846976ULL,
+    2305843009213693952ULL,
+    4611686018427387904ULL,
+    9223372036854775808ULL};
+
+static inline bool isPow2(uint64_t n, uint64_t *m)
+{
+    for (int i = 0; i < 63; ++i)
+    {
+        if (table[i] == n)
+        {
+            return true;
+        }
+        if (table[i] > n)
+        {
+            *m = table[i - 1];
+            return false;
+        }
+    }
+    *m = 0;
+    return false;
+}
+
+string counterGame(uint64_t n)
+{
+    // Complete this function
+    int run = 0;
+    uint64_t m;
+
+    while (n != 1)
+    {
+        if (isPow2(n, &m))
+        {
+            n /= 2;
+        }
+        else
+        {
+            n -= m;
+        }
+
+        run++;
+    }
+    return (run % 2 == 1) ? "Louise" : "Richard";
+}
+
+int main()
+{
+    //freopen("input.txt", "r", stdin);
+    // freopen("output.txt", "w", stdout);
+
+    int t;
+    cin >> t;
+    while (t-- > 0)
+    {
+        uint64_t n;
+        cin >> n;
+        string result = counterGame(n);
+        cout << result << endl;
+    }
+
+    return 0;
+}
