@@ -3,7 +3,8 @@
 
 using namespace std;
 
-#define SLOT_MAX 1000
+#define SLOT_MAX_ZERO   (4)
+#define SLOT_MAX        ((int)pow(10, SLOT_MAX_ZERO))
 
 // Complete the extraLongFactorials function below.
 void extraLongFactorials(int n)
@@ -40,7 +41,7 @@ void extraLongFactorials(int n)
     printf("%d", ans.back());
     for(int j=ans.size()-2; j>=0; --j)
     {
-        printf("%03d", ans[j]);
+        printf("%0*d", SLOT_MAX_ZERO, ans[j]);
     }
     printf("\n");
 }
