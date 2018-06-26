@@ -38,12 +38,13 @@ void extraLongFactorials(int n)
         }
     }
     
-    printf("%d", ans.back());
+    cout<<ans.back();
+    cout.fill('0');
     for(int j=ans.size()-2; j>=0; --j)
     {
-        printf("%0*d", SLOT_MAX_ZERO, ans[j]);
+        cout<<setw(SLOT_MAX_ZERO)<<ans[j];
     }
-    printf("\n");
+    cout<<endl;
 }
 
 int main()
