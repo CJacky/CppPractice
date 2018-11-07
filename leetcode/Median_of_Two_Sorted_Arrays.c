@@ -1,38 +1,47 @@
-double findMedianSortedArrays(int* nums1, int nums1Size, int* nums2, int nums2Size) 
-{
-    int arr[nums1Size + nums2Size];
-    int i, j, k, mid;
-    
-    i = j = k = 0;
-    while(i<nums1Size && j<nums2Size)
+class Solution {
+public:
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2)
     {
-        if(nums1[i] <= nums2[j])
+        int totalNum = nums1.size() + nums2.size();
+        int middle = (totalNum-1) / 2;
+        bool isOdd = totalNum % 2;
+        double A, B, T;
+        
+        for(int i=0, i1=0, i2=0; i<totalNum; ++i)
         {
-            arr[k++] = nums1[i++];
+            if( i1 < nums1.size() && i2 < nums2.size() )
+            {
+                if( nums1[i1] < nums2[i2] )
+                {
+                    T = nums1[i1++];
+                }
+                else
+                {
+                    T = nums2[i2++];
+                }
+            }
+            else if( i1 < nums1.size() )
+            {
+                T = nums1[i1++];
+            }
+            else
+            {
+                T = nums2[i2++];
+            }
+            
+            if( i == middle )
+            {
+                A = T;
+            }
+            
+            if( i == middle+1)
+            {
+                B = T;
+                break;
+            }
+            
         }
-        else
-        {
-            arr[k++] = nums2[j++];
-        }
+        
+        return (isOdd)? A : (A+B)/2;
     }
-    
-    while(i<nums1Size)
-    {
-        arr[k++] = nums1[i++];
-    }
-    
-    while(j<nums2Size)
-    {
-        arr[k++] = nums2[j++];
-    }   
-    
-    mid = (nums1Size+nums2Size)/2;
-    if( (nums1Size+nums2Size)%2 == 0 )
-    {
-        return ((double)arr[mid] + (double)arr[mid-1])/2;
-    }
-    else
-    {
-        return arr[mid];
-    }
-}
+};
